@@ -112,13 +112,11 @@ javascript:window.history.forward(1);
 ?>
                       <tr>
                         <td><?php echo $row['brandn'];?></td>
-                         <td><?php echo $row['brandm'];?></td>
+                        <td><?php echo $row['brandm'];?></td>
                         <td>
-				<a href="#updateordinance<?php echo $row['brandid'];?>" data-target="#updateordinance<?php echo $row['brandid'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a> 
-               
-                
-<a href="#" id="<?php echo $row['brandid']; ?>" class="delbutton" title="Click to Delete the Brand"><button class="btn btn-danger"><i class="glyphicon glyphicon-edit text-red"></i></button></a>
-						</td>
+                          <a href="#updateordinance<?php echo $row['brandid'];?>" data-target="#updateordinance<?php echo $row['brandid'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>  
+                          <a href="#" id="<?php echo $row['brandid']; ?>" class="delbutton" title="Click to Delete the Brand"><i class="glyphicon glyphicon-trash"></i></a>
+            						</td>
                       </tr>
 <div id="updateordinance<?php echo $row['brandid'];?>" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
 	<div class="modal-dialog">
@@ -129,20 +127,19 @@ javascript:window.history.forward(1);
                 <h4 class="modal-title">Update Category Details</h4>
               </div>
               <div class="modal-body">
-			  <form class="form-horizontal" method="post" action="brand_update.php" enctype='multipart/form-data'>
-                
-				<div class="form-group">
-					<label class="control-label col-lg-3" for="name">Brand</label>
-					<div class="col-lg-9"><input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['brandid'];?>" required>  
-					  <input type="text" class="form-control" id="name" name="brandn" value="<?php echo $row['brandn'];?>" required>  
-                      <input type="text" class="form-control" id="name" name="brandn" value="<?php echo $row['brandm'];?>" required> 
-					</div>
-				</div> 
-				
-				
-              </div><hr>
+        			  <form class="form-horizontal" method="post" action="brand_update.php" enctype='multipart/form-data'>
+                        
+        				<div class="form-group">
+        					<label class="control-label col-lg-3" for="name">Brand</label>
+        					<div class="col-lg-9"><input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['brandid'];?>" required>  
+        					  <input type="text" class="form-control" id="name" name="brandn" value="<?php echo $row['brandn'];?>" required>  
+                              <input type="text" class="form-control" id="name" name="brandm" value="<?php echo $row['brandm'];?>" required> 
+        					</div>
+        				</div> 
+              </div>
+              <hr>
               <div class="modal-footer">
-		<button type="submit" class="btn btn-primary">Save changes</button>
+		            <button type="submit" class="btn btn-primary">Save changes</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
 			  </form>
@@ -153,13 +150,6 @@ javascript:window.history.forward(1);
  <!--end of modal-->                    
 <?php }?>					  
                     </tbody>
-                    <tfoot>
-                      <tr>
-                        <th>Brand name</th>
-                        <th>Model</th>
-			<th>Action</th>
-                      </tr>					  
-                    </tfoot>
                   </table>
                 </div><!-- /.box-body -->
  
@@ -192,8 +182,7 @@ javascript:window.history.forward(1);
     
     <script>
       $(function () {
-        $("#example1").DataTable();
-        $('#example2').DataTable({
+        $('#example1').DataTable({
           "paging": true,
           "lengthChange": false,
           "searching": false,
@@ -224,11 +213,10 @@ var info = 'id=' + del_id;
    url: "branddelete.php",
    data: info,
    success: function(){
-   
+      document.location='brand.php';
    }
  });
-         $(this).parents(".record").animate({ backgroundColor: "#fbc7c7" }, "fast")
-		.animate({ opacity: "hide" }, "slow");
+
 
  }
 
