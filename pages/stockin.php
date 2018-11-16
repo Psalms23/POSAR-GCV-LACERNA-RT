@@ -125,7 +125,7 @@ endif;
                     <tbody>
 <?php
 		$branch=$_SESSION['branch'];
-		$query=mysqli_query($con,"select * from stockin natural join product natural join purchase_request where branch_id='$branch' order by date desc")or die(mysqli_error());
+		$query=mysqli_query($con,"select * from stockin a JOIN product b on b.branch_id=a.branch_id join purchase_request c on c.branch_id=a.branch_id where a.branch_id='$branch' order by date desc")or die(mysqli_error());
 		while($row=mysqli_fetch_array($query)){
 		
 ?>
@@ -141,18 +141,6 @@ endif;
                    
 <?php }?>					  
                     </tbody>
-                    <tfoot>
-                      <tr>
-                        <th>Order ID</th>
-                        <th>Delivery Receipt</th>
-                        <th>Product name</th>
-                        <th>Qty Order</th>
-                        <th>Qty Received</th>
-				        <th>Date Delivered</th>
-                        <th>Status</th>
-                        
-                      </tr>					  
-                    </tfoot>
                   </table>
                 </div><!-- /.box-body -->
  
