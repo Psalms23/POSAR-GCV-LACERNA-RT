@@ -56,19 +56,19 @@ endif;
                 </div>
                 <div class="box-body">
                   <!-- Date range -->
-                  <form method="post" action="stockin_add.php" enctype="multipart/form-data">
+                  
   
                   <div class="form-group">
                     <label for="date">Order ID</label>
                     <div class="input-group col-md-12">
-                      <select class="form-control select2" name="pr_id" required>
+                      <select id="pr_id" class="form-control select2" name="pr_id" required>
                         <?php
 			 include('../dist/includes/dbcon.php');
-				$query2=mysqli_query($con,"select * from purchase_request where branch_id='$branch' order by pr_id")or die(mysqli_error());
+				$query2=mysqli_query($con,"select * from purchase_request a inner join product b on a.prod_id=b.prod_id where a.branch_id='$branch' order by pr_id")or die(mysqli_error());
 				  while($row=mysqli_fetch_array($query2)){
 		      ?>
-                        <option value="<?php echo $row['pr_id'];?>"><?php echo $row['pr_id'];?></option>
-                        <?php }?>
+                        <option value="<?php echo $row['pr_id'];?>"><?php echo $row['pr_id'].' - '.$row['prod_name'].' ('.$row['prod_desc'].' '.$row['qtypr'].'pcs)';?></option>
+                        <?php } ?>
                       </select>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
@@ -77,28 +77,28 @@ endif;
 		   <div class="form-group">
                     <label for="date">Deliver Receipt</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="date" name="dr" placeholder="Delivery Receipt" required>
+                      <input type="text" class="form-control pull-right" id="dr" name="dr" placeholder="Delivery Receipt" required>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
                   <div class="form-group">
                     <label for="date">Quantity</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="date" name="qty" placeholder="Quantity" required>
+                      <input type="number" class="form-control pull-right" id="qty" name="qty" placeholder="Quantity" value="0" required>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
                
                 
                   <div class="form-group">
                     <div class="input-group">
-                      <button class="btn btn-primary" id="daterange-btn" name="">
+                      <button class="btn btn-primary" id="add-to-cart" name="">
                         Save
                       </button>
-					  <button class="btn" id="daterange-btn">
+					  <button class="btn" id="clear-stockin">
                         Clear
                       </button>
                     </div>
                   </div><!-- /.form group -->
-				</form>	
+
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
             </div><!-- /.col (right) -->
@@ -107,10 +107,52 @@ endif;
               <div class="box box-primary">
     
                 <div class="box-header">
+                  <h3 class="box-title">Product Stock In cart</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                  <table id="cart" class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Order ID</th>
+                        <th>Delivery Receipt</th>
+                        <th>Product name</th>
+                        <th>Qty Order</th>
+                        <th>Qty Received</th>
+                        <th>Date Delivered</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><a class="btn btn-primary pull-right add-to-stockin"> <i class="glyphicon glyphicon-save"></i> 
+                    Add To Stocks</a></td>
+                       </tr>
+                    </tfoot>
+                  </table>
+                </div><!-- /.box-body -->
+ 
+            </div><!-- /.col -->
+			
+			
+          </div><!-- /.row -->
+
+          <div class="col-xs-12">
+              <div class="box box-primary">
+    
+                <div class="box-header">
                   <h3 class="box-title">Product Stockin List</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                  <table id="example1" class="table table-bordered table-striped">
+                  <table id="stock_list" class="table table-bordered table-striped">
                     <thead>
                       <tr>
                         <th>Order ID</th>
@@ -118,35 +160,35 @@ endif;
                          <th>Product name</th>
                         <th>Qty Order</th>
                         <th>Qty Received</th>
-				        <th>Date Delivered</th>
+                <th>Date Delivered</th>
                         <th>Status</th>
                       </tr>
                     </thead>
                     <tbody>
-<?php
-		$branch=$_SESSION['branch'];
-		$query=mysqli_query($con,"select * from stockin a JOIN product b on b.branch_id=a.branch_id join purchase_request c on c.branch_id=a.branch_id where a.branch_id='$branch' order by date desc")or die(mysqli_error());
-		while($row=mysqli_fetch_array($query)){
-		
-?>
+                      <?php
+                          $branch=$_SESSION['branch'];
+                          $query=mysqli_query($con,"select * from stockin a JOIN product b on b.prod_id=a.prod_id join purchase_request c on c.branch_id=a.branch_id where a.branch_id='$branch' order by date desc")or die(mysqli_error());
+                          while($row=mysqli_fetch_array($query)){
+                          
+                      ?>
                       <tr>
                         <td><?php echo $row['pr_id'];?></td>
                         <td><?php echo $row['dr'];?></td>
                          <td><?php echo $row['prod_name'];?></td>
                          <td><?php echo $row['qtypr'];?></td>
-            		    <td><?php echo $row['qty'];?></td>
-            		    <td><?php echo $row['date'];?></td>
+                    <td><?php echo $row['qty'];?></td>
+                    <td><?php echo $row['date'];?></td>
                         <td><?php echo $row['status'];?></td>
                       </tr>
                    
-<?php }?>					  
+                    <?php }?>           
                     </tbody>
                   </table>
                 </div><!-- /.box-body -->
  
             </div><!-- /.col -->
-			
-			
+      
+      
           </div><!-- /.row -->
 	  
             
@@ -171,80 +213,108 @@ endif;
     <script src="../dist/js/demo.js"></script>
     <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="../plugins/datatables/dataTables.bootstrap.min.js"></script>
+
     
     <script>
       $(function () {
-        $("#example1").DataTable();
-        $('#example2').DataTable({
+        //initialize tables
+        $('#stock_list').DataTable();
+        var table_data = [];
+        var table = $('#cart').DataTable({
           "paging": true,
           "lengthChange": false,
           "searching": false,
           "ordering": true,
           "info": true,
-          "autoWidth": false
+          "autoWidth": false,
+          "select": true,
+          "columnDefs": [
+            { "name": "pr_id",   "targets": 0 },
+            { "name": "dr",  "targets": 1 },
+            { "name": "prod_name", "targets": 2 },
+            { "name": "qtypr",  "targets": 3 },
+            { "name": "qty",    "targets": 4 },
+            { "name": "date",    "targets": 5 }
+          ],
+          "aoColumnDefs":[
+            {
+                "aTargets": [6],
+                "mRender": function(data, type, row) {
+                    return "<a class='remove' href='javascript:void(0)'>x</a>";
+                }
+            }
+          ]
         });
+
+        //clear stock in field list
+        $('#clear-stockin').on('click', function(e){
+          e.preventDefault();
+          $('#dr').val("");
+          $('#qty').val(0);
+        });
+        //add to stock in cart
+        $('#add-to-cart').on('click', function(e){
+          e.preventDefault();
+          var dr = $('#dr').val();
+          var qty = $('#qty').val();
+          if(dr == "" || qty <= 0){
+            alert('Invalid Data for stock in!')
+          }else{
+            var id = $(e.target).data('id');
+            var jqxhr = $.ajax({
+               type: "POST",
+               url: "stockin-fetch.php",
+               data: { 
+                "branch": <?php echo  $_SESSION['branch'];?>,
+                "pr_id":$('#pr_id').val(),
+                "dr":dr,
+                "qty":qty,
+                 },
+                dataType:"json",
+               success: function(data){
+                table.row.add( [data.pr_id, data.dr, data.prod_name, data.qtypr, data.qty, data.date] ).draw( false );
+               }
+            });
+          }
+        });
+
+
+        //Add to stocks
+        $('.add-to-stockin').on('click', function(e){
+          e.preventDefault();
+          var tdata = table.rows().data();
+          for (var i = tdata.length -1; i >= 0; i--) {
+            tdata[i][6] = "<?php echo $_SESSION['branch']; ?>";
+            tdata[i][7] = "<?php  echo $_SESSION['id']; ?>";
+            $.ajax({
+              type: "POST",
+              url: "stockin_add.php",
+              data: {data:tdata[i]},
+              dataType:"json",
+              success: function(data){
+                      console.log(data.message)
+                    }
+            });
+          }
+        })
+
+        // remove from cart
+       $('#cart').on( 'click', 'tr a.remove', function () {
+            var row = this.closest('tr');
+            var row_data = table.row( row ).data();
+            table.row( row ).remove().draw();
+        } );
+
       });
     </script>
      <script>
+
       $(function () {
+        
         //Initialize Select2 Elements
         $(".select2").select2();
 
-        //Datemask dd/mm/yyyy
-        $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
-        //Datemask2 mm/dd/yyyy
-        $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
-        //Money Euro
-        $("[data-mask]").inputmask();
-
-        //Date range picker
-        $('#reservation').daterangepicker();
-        //Date range picker with time picker
-        $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
-        //Date range as a button
-        $('#daterange-btn').daterangepicker(
-            {
-              ranges: {
-                'Today': [moment(), moment()],
-                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                'This Month': [moment().startOf('month'), moment().endOf('month')],
-                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-              },
-              startDate: moment().subtract(29, 'days'),
-              endDate: moment()
-            },
-        function (start, end) {
-          $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-        }
-        );
-
-        //iCheck for checkbox and radio inputs
-        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-          checkboxClass: 'icheckbox_minimal-blue',
-          radioClass: 'iradio_minimal-blue'
-        });
-        //Red color scheme for iCheck
-        $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-          checkboxClass: 'icheckbox_minimal-red',
-          radioClass: 'iradio_minimal-red'
-        });
-        //Flat red color scheme for iCheck
-        $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-          checkboxClass: 'icheckbox_flat-green',
-          radioClass: 'iradio_flat-green'
-        });
-
-        //Colorpicker
-        $(".my-colorpicker1").colorpicker();
-        //color picker with addon
-        $(".my-colorpicker2").colorpicker();
-
-        //Timepicker
-        $(".timepicker").timepicker({
-          showInputs: false
-        });
+        
       });
     </script>
   </body>
