@@ -299,7 +299,7 @@ $query=mysqli_query($con,"select * from user natural join branch where username=
            $lname=$row['lname'];
            $counter=mysqli_num_rows($query);
            $pos = '';
-           if ($row['position'] == 1) {
+           if ($row['position'] == 0) {
            	$pos="User";
            }else{
            	$pos="Admin";
