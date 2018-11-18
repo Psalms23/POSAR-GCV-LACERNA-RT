@@ -167,7 +167,7 @@ endif;
                     <tbody>
                       <?php
                           $branch=$_SESSION['branch'];
-                          $query=mysqli_query($con,"select * from stockin a JOIN product b on b.prod_id=a.prod_id join purchase_request c on c.branch_id=a.branch_id where a.branch_id='$branch' order by date desc")or die(mysqli_error());
+                          $query=mysqli_query($con,"select * from stockin a inner join purchase_request b on a.prod_id=b.pr_id inner join product c on c.prod_id=b.prod_id where a.branch_id='$branch' order by date desc")or die(mysqli_error());
                           while($row=mysqli_fetch_array($query)){
                           
                       ?>
@@ -260,7 +260,7 @@ endif;
           if(dr == "" || qty <= 0){
             alert('Invalid Data for stock in!')
           }else{
-            var id = $(e.target).data('id');
+            alert('clicked')
             var jqxhr = $.ajax({
                type: "POST",
                url: "stockin-fetch.php",

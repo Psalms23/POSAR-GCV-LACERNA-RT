@@ -8,7 +8,6 @@ include('../dist/includes/dbcon.php');
 	date_default_timezone_set('Asia/Manila');
 
 	$date = date("Y-m-d H:i:s");
-	$id=$_SESSION['id'];
 	
 	$query=mysqli_query($con,"select * from purchase_request natural join product where pr_id='$pr_id'")or die(mysqli_error());
   
