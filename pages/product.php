@@ -54,11 +54,11 @@ endif;
                   <h3 class="box-title">Product List</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                  <table id="example1" class="table table-bordered table-striped">
+                  <table id="prod_list" class="table table-bordered table-striped">
                     <thead>
                       <tr>
                       	<th>Picture</th>
-                        <th>Product Code</th>
+                        <th>Serial Number</th>
                         <th>Product Name</th>
                         <th>Description</th>
 						<th>Brand</th>
@@ -79,7 +79,7 @@ endif;
 ?>
                       <tr>
                       	<td><img style="width:80px;height:60px" src="../dist/uploads/<?php echo $row['prod_pic'];?>"></td>
-                    <td><?php echo $row['prod_id'];?></td>
+                    <td><img style="width:80px;height:60px;" src="barcode.php?text=<?php echo $row['serial'];?>&print=true"></td>
                   <td><?php echo $row['prod_name'];?></td>
                 <td><?php echo $row['prod_desc'];?></td>
 				<td><?php echo $row['brandn'];?></td>
@@ -125,14 +125,13 @@ endif;
 				<div class="form-group">
 					<label class="control-label col-lg-3" for="file">Brand</label>
 					<div class="col-lg-9">
-					    <select class="form-control select2" style="width: 100%;" name="brand" required>
-						  <option value="<?php echo $row['brandid'];?>"><?php echo $row['brandn'];?></option>
+					    <select class="form-control select2 brand" style="width: 100%;" name="brand" required>
 					      <?php
 						
 							$query2=mysqli_query($con,"select * from brand")or die(mysqli_error());
 							  while($row2=mysqli_fetch_array($query2)){
 					      ?>
-							    <option value="<?php echo $row['brandid'];?>"><?php echo $row2['brandn'];?></option>
+							    <option value="<?php echo $row2['brandid'];?>"><?php echo $row2['brandn'];?></option>
 					      <?php }?>
 					    </select>
 					</div>
@@ -140,16 +139,9 @@ endif;
 					<div class="form-group">
 					<label class="control-label col-lg-3" for="file">Model</label>
 					<div class="col-lg-9">
-					    <select class="form-control select2" style="width: 100%;" name="brandm" required>
-						  <option value="<?php echo $row['brandid'];?>"><?php echo $row['brandm'];?></option>
-					      <?php
-						
-							$query2=mysqli_query($con,"select * from brand")or die(mysqli_error());
-							  while($row2=mysqli_fetch_array($query2)){
-					      ?>
-							    <option value="<?php echo $row['brandid'];?>"><?php echo $row2['brandm'];?></option>
-					      <?php }?>
-					    </select>
+                <select class="form-control select2 model" style="width: 100%;" name="brandm" required>
+                 
+              </select>
 					</div>
 				</div> 
 				<div class="form-group">
@@ -201,20 +193,6 @@ endif;
 <?php }?>					  
                     </tbody>
                     <tfoot>
-                      <tr>
-                      	<th>Picture</th>
-                        <th>Serial #</th>
-                        <th>Product Name</th>
-                        <th>Description</th>
-						<th>Brand</th>
-                        <th>Model</th>
-                        <th>Qty</th>
-						<th>Price</th>
-						<th>Category</th>
-						<th>Reorder</th>
-                        <th>Action</th>
-                      </tr>					  
-                    </tfoot>
                   </table>
                 </div><!-- /.box-body -->
  
@@ -254,9 +232,15 @@ endif;
           </div>
         </div>
         <div class="form-group">
+          <label class="control-label col-lg-3" for="name">Serial Number</label>
+          <div class="col-lg-9">  
+            <input type="text" class="form-control" id="serial" name="serial" placeholder="Serial Number" required>  
+          </div>
+        </div> 
+        <div class="form-group">
           <label class="control-label col-lg-3" for="file">Brand</label>
           <div class="col-lg-9">
-              <select class="form-control select2" style="width: 100%;" name="brand" required>
+              <select class="form-control select2 brand" style="width: 100%;" name="brand" required>
                 <?php
             
               $query2=mysqli_query($con,"select * from brand")or die(mysqli_error());
@@ -270,14 +254,8 @@ endif;
          <div class="form-group">
           <label class="control-label col-lg-3" for="file">Model</label>
           <div class="col-lg-9">
-              <select class="form-control select2" style="width: 100%;" name="brandm" required>
-                <?php
-            
-              $query2=mysqli_query($con,"select * from brand")or die(mysqli_error());
-                while($row2=mysqli_fetch_array($query2)){
-                ?>
-                  <option value="<?php echo $row2['brandid'];?>"><?php echo $row2['brandm'];?></option>
-                <?php }?>
+              <select class="form-control select2 model" style="width: 100%;" name="brandm" required>
+                
               </select>
           </div>
         </div> 
@@ -343,8 +321,38 @@ endif;
     
     <script>
       $(function () {
-        $("#example1").DataTable();
-        $('#example2').DataTable({
+        var brand =  $('.brand').val();
+        var jqxhr = $.ajax({
+               type: "POST",
+               url: "brand-fetch.php",
+               data: { 
+                "brand": brand
+                 },
+                dataType:"json",
+               success: function(data){
+                $('.model').append(new Option(data.brandm, data.brandid))
+               }
+            });
+
+        $('.brand').on('change', function(e){
+          e.preventDefault()
+          var brand = $(e.target).val();
+          var jqxhr = $.ajax({
+               type: "POST",
+               url: "brand-fetch.php",
+               data: { 
+                "brand": brand
+                 },
+                dataType:"json",
+               success: function(data){
+                console.log(data)
+                $('.model').find('option').remove()
+                $('.model').append(new Option(data.brandm, data.brandid))
+               }
+            });
+        })
+
+        $('#prod_list').DataTable({
           "paging": true,
           "lengthChange": false,
           "searching": false,

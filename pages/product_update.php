@@ -47,7 +47,7 @@ include('../dist/includes/dbcon.php');
 			}
 			
 	mysqli_query($con,"update product set prod_name='$name',prod_price='$price',
-	reorder='$reorder',supplier_id='$supplier',cat_id='$category',prod_pic='$pic',serial='$serial',prod_desc='$desc' where prod_id='$id'")or die(mysqli_error($con));
+	reorder='$reorder',cat_id='$category',prod_pic='$pic',serial='$serial',prod_desc='$desc' where prod_id='$id'")or die(mysqli_error($con));
 	
 	echo "<script type='text/javascript'>alert('Successfully updated product details!');</script>";
 	echo "<script>document.location='product.php'</script>";  
