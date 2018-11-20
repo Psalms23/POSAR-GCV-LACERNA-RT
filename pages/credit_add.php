@@ -9,9 +9,9 @@ include('../dist/includes/dbcon.php');
 	$cid=$_REQUEST['cid'];
 	$branch=$_SESSION['branch'];
 	
-	$total=$_POST['total'];
+	$total=number_format($_POST['total'], 2);
 	$cid=$_REQUEST['cid'];
-	$amount_due = $_POST['amount_due'];
+	$amount_due = number_format($_POST['amount_due'], 2);
 	$cust_id = number_format($_REQUEST['cid']);
 
 		

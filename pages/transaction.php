@@ -38,7 +38,7 @@ javascript:window.history.forward(1);
           <!-- Content Header (Page header) -->
           <section class="content-header">
             <h1>
-              <a class="btn btn-lg btn-warning" href="home.php">Back</a>
+              <a class="btn btn-lg btn-warning" href="customer.php">Back</a>
               
             </h1>
             <ol class="breadcrumb">
@@ -155,7 +155,7 @@ javascript:window.history.forward(1);
 				<div class="form-group">
 					<label class="control-label col-lg-3" for="price">Qty</label>
 					<div class="col-lg-9">
-					  <input type="text" class="form-control" id="price" name="qty" value="<?php echo $row['qty'];?>" required>  
+					  <input type="number" class="form-control" id="price" name="qty" value="<?php echo $row['qty'];?>" required>  
 					</div>
 				</div>
 				

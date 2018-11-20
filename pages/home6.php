@@ -107,7 +107,7 @@ endif;
                           <div class="icon" style="margin-top:10px">
                             <i class="glyphicon glyphicon-user"></i>
                           </div>
-                          <a href="customer1.php" class="small-box-footer">
+                          <a href="customer.php" class="small-box-footer">
                             Go <i class="fa fa-arrow-circle-right"></i>
                           </a>
                         </div>

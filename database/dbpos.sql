@@ -346,16 +346,16 @@ CREATE TABLE IF NOT EXISTS `payment` (
   `cust_id` int(11) NOT NULL,
   `sales_id` int(11) NOT NULL,
   `payment` decimal(10,2) NOT NULL,
-  `payment_date` datetime NOT NULL,
+  `payment_date` datetime,
   `user_id` int(11) NOT NULL,
   `branch_id` int(11) NOT NULL,
   `payment_for` date NOT NULL,
   `due` decimal(10,2) NOT NULL,
-  `interest` decimal(10,2) NOT NULL,
+  `interest` decimal(10,2) DEFAULT 0,
   `remaining` decimal(10,2) NOT NULL,
   `status` varchar(20) NOT NULL,
-  `rebate` decimal(10,2) NOT NULL,
-  `or_no` int(11) NOT NULL,
+  `rebate` decimal(10,2) DEFAULT 0,
+  `or_no` int(11),
   PRIMARY KEY (`payment_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=64 ;
 

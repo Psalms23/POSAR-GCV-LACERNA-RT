@@ -24,6 +24,7 @@ date_default_timezone_set('Asia/Manila');
 	$due_date = date("Y-m-d",strtotime("+$span months"));
 	$cid=$_POST['cid'];
 	$date=date("Y-m-d");
+	$payment_date =  date("Y-m-d H:i:s");;
 	$query=mysqli_query($con,"select * from term where sales_id='$sid'")or die(mysqli_error($con));
 		$count=mysqli_num_rows($query);
 
@@ -48,8 +49,8 @@ date_default_timezone_set('Asia/Manila');
 		{
 			$due_date1 = date("Y-m-d",strtotime("+$i months"));
 
-				mysqli_query($con,"INSERT INTO payment(cust_id,payment_for,due,interest,payment,user_id,branch_id,remaining,sales_id) 
-			VALUES('$cid','$due_date1','$due','0','0','$id','$branch','$due','$sid')")or die(mysqli_error($con));
+				mysqli_query($con,"INSERT INTO payment(cust_id,payment_for,due,interest,payment,user_id,branch_id,remaining,sales_id, status) 
+			VALUES('$cid','$due_date1','$due','0','0','$id','$branch','$due','$sid','unpaid')")or die(mysqli_error($con));
 		
 		}
 	}
@@ -61,8 +62,8 @@ date_default_timezone_set('Asia/Manila');
 		{
 			$due_date1 = date("Y-m-d",strtotime($date. " + $i days")); 
 				
-				mysqli_query($con,"INSERT INTO payment(cust_id,payment_for,due,interest,payment,user_id,branch_id,remaining,sales_id) 
-			VALUES('$cid','$due_date1','$due','0','0','$id','$branch','$due','$sid')")or die(mysqli_error($con));
+				mysqli_query($con,"INSERT INTO payment(cust_id,payment_for,due,interest,payment,user_id,branch_id,remaining,sales_id, status) 
+			VALUES('$cid','$due_date1','$due','0','0','$id','$branch','$due','$sid','unpaid')")or die(mysqli_error($con));
 
 		}
 	}
@@ -76,18 +77,18 @@ date_default_timezone_set('Asia/Manila');
 		{
 		$due_date1 = date("Y-m-d",strtotime($date. " + $i weeks"));
 
-				mysqli_query($con,"INSERT INTO payment(cust_id,payment_for,due,interest,payment,user_id,branch_id,remaining,sales_id) 
-			VALUES('$cid','$due_date1','$due','0','0','$id','$branch','$due','$sid')")or die(mysqli_error($con));
+				mysqli_query($con,"INSERT INTO payment(cust_id,payment_for,due,interest,payment,user_id,branch_id,remaining,sales_id, status) 
+			VALUES('$cid','$due_date1','$due','0','0','$id','$branch','$due','$sid','unpaid')")or die(mysqli_error($con));
 		}	
 	}	
 		
-		mysqli_query($con,"INSERT INTO term(payable_for,term,due,payment_start,down,due_date,interest,sales_id) 
-		VALUES('$span','$terms','$due','$date','$down','$due_date','$interest','$sid')")or die(mysqli_error($con));
+		mysqli_query($con,"INSERT INTO term(payable_for,term,due,payment_start,down,due_date,interest,sales_id,status) 
+		VALUES('$span','$terms','$due','$date','$down','$due_date','$interest','$sid','unpaid')")or die(mysqli_error($con));
 		
 	mysqli_query($con,"UPDATE customer SET balance='$balance' where cust_id='$cid'") or die(mysqli_error($con)); 
 	
 		mysqli_query($con,"INSERT INTO payment(cust_id,payment,payment_date,user_id,payment_for,branch_id,due,status,sales_id,or_no) 
-			VALUES('$cid','$down','$date','$id','$date','$branch','$down','paid','$sid','$or')")or die(mysqli_error($con));	
+			VALUES('$cid','$down','$payment_date','$id','$date','$branch','$down','paid','$sid','$or')")or die(mysqli_error($con));	
 	
 	echo "<script>document.location='receipt1.php'</script>";  	
 
