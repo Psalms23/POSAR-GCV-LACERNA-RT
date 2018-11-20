@@ -105,58 +105,25 @@ endif;
                           <input type="text" class="form-control pull-right" id="date" name="contact" placeholder="Customer Contact #" required>
                       </div><!-- /.input group -->
                     </div>
-                  
-                    <div class="col-md-5">
-                      <label for="date">Skecth</label>
-                      <div class="input-group col-md-2">
-                          <select class="form-control select2" name="payslip" tabindex="1" required>
-                   
-                    <option value="1"></option>
-                    <option value="2">Ok</option>
+                  </div><!--row--> 
+                      <div class="checkbox">
+                        <label for="date"> <input type="checkbox" name="payslip"> Sketch</label>
+                      </div>
+                       <div class="checkbox">
+                        <label for="date"> <input type="checkbox" name="validid"> 2 Valid ID</label>
+                      </div>
+                      <div class="checkbox">
+                          <label for="date"> <input type="checkbox" name="cert"> Barangay Clearance</label>
+                        
+                      </div>
+                      <div class="checkbox">
+                        <label for="date"> <input type="checkbox" name="source"> Proof of Income</label>
+                      </div>
                     
-                </select>
-                        </div>
-                    </div>
-                     <div class="col-md-5">
-                      <label for="date">2 Valid ID</label>
-                      <div class="input-group col-md-2">
-                          <select class="form-control select2" name="validid" tabindex="1" required>
-                   
-                    <option value="1"></option>
-                    <option value="2">Ok</option>
-                    
-                </select>
-                        </div>
-                    </div>
-                      <div class="col-md-5">
-                      <label for="date">Barangay Clearance</label>
-                      <div class="input-group col-md-2">
-                          <select class="form-control select2" name="cert" tabindex="1" required>
-                   
-                    <option value="1"></option>
-                    <option value="2">Ok</option>
-                    
-                </select>
-                        </div>
-                    </div>
-                     <div class="col-md-5">
-                      <label for="date">Proof of Income</label>
-                      <div class="input-group col-md-2">
-                          <select class="form-control select2" name="source" tabindex="1" required>
-                   
-                    <option value="1"></option>
-                    <option value="2">Ok</option>
-                    
-                </select>
-                        </div>
-                    </div>
-            
-                     
-                  </div><!--row-->     
                     <div class="col-md-12">
                        <div class="col-md-12">
                         <button class="btn btn-lg btn-primary pull-right" id="daterange-btn" name="">Submit</button>
-					</div>	
+					           </div>	
                     </div>  
 					
 				  </form>	

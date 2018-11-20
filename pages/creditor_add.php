@@ -12,7 +12,8 @@ include('../dist/includes/dbcon.php');
 	$validid = $_POST['validid'];
 	$cert = $_POST['cert'];
 	$source = $_POST['source'];
-	
+	$contp = $_POST['first']. ' '.$_POST['last'];
+	$tphone = 0;
 
 	$query2=mysqli_query($con,"select * from customer where cust_last='$last' and cust_first='$first' and branch_id='$branch'")or die(mysqli_error($con));
 		$count=mysqli_num_rows($query2);
@@ -29,8 +30,8 @@ include('../dist/includes/dbcon.php');
 		else
 		{	
 			
-			mysqli_query($con,"INSERT INTO customer(cust_last,cust_mname,cust_first,cname,cust_address,cust_contact,branch_id,balance,ci_remarks,payslip,valid_id,cert,income,cust_pic) 
-				VALUES('$last','$mi','$first','$cn','$address','$contact','$branch','0','Approved','$payslip','$validid','$cert','$source','default.gif')")or die(mysqli_error($con));
+			mysqli_query($con,"INSERT INTO customer(cust_last,cust_mname,cust_first,cname,cust_address,cust_contact,branch_id,balance,ci_remarks,payslip,valid_id,cert,income,cust_pic,contp,tphone) 
+				VALUES('$last','$mi','$first','$cn','$address','$contact','$branch','0','Approved','$payslip','$validid','$cert','$source','default.gif','$contp','$tphone')")or die(mysqli_error($con));
 
 			$id=mysqli_insert_id($con);
 			//$_SESSION['cid']=$id;

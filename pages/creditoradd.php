@@ -8,8 +8,8 @@ include('../dist/includes/dbcon.php');
 	$cust_last = $_POST['cust_last'];
 	$cust_address = $_POST['cust_address'];
 	$cust_contact = $_POST['cust_contact'];
-	$contp = $_POST['contp'];
-	$tphone = $_POST['tphone'];
+	$contp = $_POST['cust_first']. ' '.$_POST['cust_last'];
+	$tphone =$_POST['contact'];
 			
 	$query2=mysqli_query($con,"select * from customer where cname='$cname' and cust_first='$cust_first' and branch_id='$branch'")or die(mysqli_error($con));
 		$count=mysqli_num_rows($query2);

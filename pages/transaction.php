@@ -96,13 +96,15 @@ javascript:window.history.forward(1);
 					</form>	
 					</div>
 					<div class="col-md-12">
-<?php 
-$queryb=mysqli_query($con,"select balance from customer where cust_id='$cid'")or die(mysqli_error());
-     $rowb=mysqli_fetch_array($queryb);
-        $balance=$rowb['balance'];
-        $cust_id = $rowb['cust_id'];
-        if ($balance>0) $disabled="disabled=true";else{$disabled="";}
-?>
+              <?php 
+              $queryb=mysqli_query($con,"select balance from customer where cust_id='$cid'")or die(mysqli_error());
+                   $rowb=mysqli_fetch_array($queryb);
+                   if (count($rowb) != 0) {
+                    $balance=$rowb['balance'];
+                    $cust_id = $cid;
+                    if ($balance>0) $disabled="disabled=true";else{$disabled="";}
+                   }
+              ?>
                   <table class="table table-bordered table-striped">
                     <thead>
                       <tr>
