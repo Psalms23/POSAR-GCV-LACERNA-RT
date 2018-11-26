@@ -59,6 +59,7 @@ endif;
 include('../dist/includes/dbcon.php');
 $id=$_SESSION['id'];
 $branch=$_SESSION['branch'];
+$cid=$_REQUEST['cid'];
     $queryb=mysqli_query($con,"select * from branch where branch_id='$branch'")or die(mysqli_error());
   
         $rowb=mysqli_fetch_array($queryb);
@@ -127,6 +128,14 @@ $branch=$_SESSION['branch'];
                         <th>Terms</th>
                         <th>________________________</th>
                       </tr>
+                      <?php if($row['modeofpayment']== 'check'): ?>
+                        <tr>
+                          <th>Check No</th>
+                          <th><?php echo $row['check_no'] ?></th>
+                          <th></th>
+                          <th></th>
+                        </tr>
+                      <?php endif; ?>
                     </thead>
                   </table>
                   <table class="table">

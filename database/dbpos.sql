@@ -352,7 +352,7 @@ CREATE TABLE IF NOT EXISTS `payment` (
   `payment_for` date NOT NULL,
   `due` decimal(10,2) NOT NULL,
   `interest` decimal(10,2) DEFAULT 0,
-  `remaining` decimal(10,2) NOT NULL,
+  `remaining` decimal(10,2) DEFAULT 0,
   `status` varchar(20) NOT NULL,
   `rebate` decimal(10,2) DEFAULT 0,
   `or_no` int(11),
@@ -496,6 +496,7 @@ CREATE TABLE IF NOT EXISTS `sales` (
   `amount_due` decimal(12,4) NOT NULL,
   `cash_change` decimal(12,4) DEFAULT NULL,
   `date_added` datetime NOT NULL,
+  `check_no` varchar(150),
   `modeofpayment` varchar(15) NOT NULL,
   `branch_id` int(11) NOT NULL,
   `total` decimal(12,4) NOT NULL,
@@ -642,9 +643,6 @@ CREATE TABLE IF NOT EXISTS `temp_trans` (
 --
 -- Dumping data for table `temp_trans`
 --
-
-INSERT INTO `temp_trans` (`temp_trans_id`, `prod_id`, `price`, `qty`, `branch_id`) VALUES
-(1, 8, '13000.00', 1, 1);
 
 -- --------------------------------------------------------
 

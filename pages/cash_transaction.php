@@ -152,7 +152,7 @@ $queryb=mysqli_query($con,"select balance from customer where cust_id='$cid'")or
 				<div class="form-group">
 					<label class="control-label col-lg-3" for="price">Qty</label>
 					<div class="col-lg-9">
-					  <input type="text" class="form-control" id="price" name="qty" value="<?php echo $row['qty'];?>" required>  
+					  <input type="number" class="form-control" id="price" name="qty" value="<?php echo $row['qty'];?>" required>  
 					</div>
 				</div>
 				
@@ -208,62 +208,135 @@ $queryb=mysqli_query($con,"select balance from customer where cust_id='$cid'")or
             </div><!-- /.col (right) -->
             
             <div class="col-md-3">
-              <div class="box box-primary">
-               
-                <div class="box-body">
-                  <!-- Date range -->
-          <form method="post" name="autoSumForm" action="sales_add.php">
-				  <div class="row">
-					 <div class="col-md-12">
-						  
-						  <div class="form-group">
-							<label for="date">Total</label>
-							
-								<input type="text" style="text-align:right" class="form-control" id="total" name="total" placeholder="Total" 
-								value="<?php echo $grand;?>" onFocus="startCalc();" onBlur="stopCalc();"  tabindex="5" readonly>
-							
-						  </div><!-- /.form group -->
-						  <div class="form-group">
-				<!--<label for="date">Discount</label>-->
-							
-								<input type="text" class="form-control text-right" id="discount" name="discount" value="" tabindex="6" placeholder="" onFocus="startCalc();" onBlur="stopCalc();">
-                                
-							<input type="hidden" class="form-control text-right" id="cid" name="cid" value="<?php echo $cid;?>">
-						  </div><!-- /.form group -->
-						  <div class="form-group">
-							<label for="date">Amount Due</label>
-							
-								<input type="text" style="text-align:right" class="form-control" id="amount_due" name="amount_due" placeholder="Amount Due" value="<?php echo number_format($grand,2);?>"  readonly>
-							
-						  </div><!-- /.form group -->
-              
-						 
-              <div class="form-group" id="tendered">
-                <label for="date">Cash Tendered</label><br>
-                <input type="text" style="text-align:right" class="form-control" onFocus="startCalc();" onBlur="stopCalc();"  id="cash" name="tendered" placeholder="Cash Tendered" value="0">
-              </div><!-- /.form group -->
-              <div class="form-group" id="change">
-                <label for="date">Change</label><br>
-                <input type="text" style="text-align:right" class="form-control" id="changed" name="change" placeholder="Change">
-              </div><!-- /.form group -->
-					</div>
-					
-					
+              <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                  <li class="active"><a href="#cash" data-toggle="tab">Cash</a></li>
+                  <li><a href="#check" data-toggle="tab">Check</a></li>
+                </ul>
+                <div class="tab-content">
+                  <div class="active tab-pane" id="cash">
+                   <div class="box box-primary">
+                                 
+                    <div class="box-body">
+                      <!-- Date range -->
+                      <form method="post" name="autoSumForm" action="sales_add.php">
+                        <div class="row">
+                         <div class="col-md-12">
+                            
+                            <div class="form-group">
+                            <label for="date">Total</label>
+                            
+                              <input type="text" style="text-align:right" class="form-control" id="total" name="total" placeholder="Total" 
+                              value="<?php echo $grand;?>" onFocus="startCalc();" onBlur="stopCalc();"  tabindex="5" readonly>
+                            
+                            </div><!-- /.form group -->
+                            <div class="form-group">
+                      <!--<label for="date">Discount</label>-->
+                            
+                              <input type="number" class="form-control text-right" id="discount" name="discount" value="0" tabindex="6" placeholder="Discount" onFocus="startCalc();" onBlur="stopCalc();">
+                                      
+                            <input type="hidden" class="form-control text-right" id="cid" name="cid" value="<?php echo $cid;?>">
+                            </div><!-- /.form group -->
+                            <div class="form-group">
+                            <label for="date">Amount Due</label>
+                            
+                              <input type="text" style="text-align:right" class="form-control" id="amount_due" name="amount_due" placeholder="Amount Due" value="<?php echo number_format($grand,2);?>"  readonly>
+                            
+                            </div><!-- /.form group -->
 
-				</div>	
-               
-                  
-                 
-                      <button class="btn btn-lg btn-block btn-primary" id="daterange-btn" name="cash" type="submit"  tabindex="7">
-                        Complete Sales
-                      </button>
-					  <button class="btn btn-lg btn-block" id="daterange-btn" type="reset"  tabindex="8">
-                        <a href="cancel.php">Cancel Sale</a>
-                      </button>
+                           
+                          <div class="form-group" id="cash">
+                            <label for="date">Cash Tendered</label><br>
+                            <input type="number" style="text-align:right" class="form-control" onFocus="startCalc();" onBlur="stopCalc();"  id="tendered" name="tendered" placeholder="Cash Tendered" value="0">
+                          </div><!-- /.form group -->
+                          <div class="form-group">
+                            <label for="date">Change</label><br>
+                            <input type="number" style="text-align:right" class="form-control" id="change" name="change" placeholder="Change">
+                          </div><!-- /.form group -->
+                        </div>
+                    
+                    
+
+                      </div>  
+
+                      
+                     
+                          <button class="btn btn-lg btn-block btn-primary" id="daterange-btn" name="cash" type="submit"  tabindex="7">
+                            Complete Sales
+                          </button>
+                          <button class="btn btn-lg btn-block" id="daterange-btn" type="reset"  tabindex="8">
+                            <a href="cancel.php">Cancel Sale</a>
+                          </button>
+
+                        </form> 
+                      </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+                  </div>
+                  <!-- /.cash-tab-pane -->
+                  <div class="tab-pane" id="check">
+                     <div class="box box-primary">
+                                   
+                      <div class="box-body">
+                        <!-- Date range -->
+                        <form method="post" name="" action="check_add.php">
+                          <div class="row">
+                           <div class="col-md-12">
+                              
+                              <div class="form-group">
+                              <label for="date">Total</label>
+                              
+                                <input type="text" style="text-align:right" class="form-control" id="total" name="total" placeholder="Total" 
+                                value="<?php echo $grand;?>" onFocus="startCalc();" onBlur="stopCalc();"  tabindex="5" readonly>
+                              
+                              </div><!-- /.form group -->
+                              <div class="form-group">
+                        <!--<label for="date">Discount</label>-->
+                              
+                                <input type="number" class="form-control text-right" id="discount" name="discount" value="0" tabindex="6" placeholder="Discount" onFocus="startCalc();" onBlur="stopCalc();">
+                                        
+                              <input type="hidden" class="form-control text-right" id="cid" name="cid" value="<?php echo $cid;?>">
+                              </div><!-- /.form group -->
+                              <div class="form-group">
+                              <label for="date">Amount Due</label>
+                              
+                                <input type="text" style="text-align:right" class="form-control" id="amount_due" name="amount_due" placeholder="Amount Due" value="<?php echo number_format($grand,2);?>"  readonly>
+                              
+                              </div><!-- /.form group -->
+
+                             
+                            <div class="form-group" id="tendered">
+                              <label for="date">Check Amount</label><br>
+                              <input type="number" style="text-align:right" class="form-control" onFocus="startCalc();" onBlur="stopCalc();"  id="check" name="check_tendered" placeholder="Cash Tendered" value="0">
+                            </div><!-- /.form group -->
+                            <div class="form-group" id="check_no">
+                              <label for="date">Check No</label><br>
+                              <input type="text" style="text-align:right" class="form-control" id="check_no" name="check_no" placeholder="Check No.">
+                            </div><!-- /.form group -->
+                          </div>
+                      
+                      
+
+                        </div>  
+
+                        
+                       
+                              <button class="btn btn-lg btn-block btn-primary" id="daterange-btn" name="check" type="submit"  tabindex="7">
+                                Complete Sales
+                              </button>
+                              <button class="btn btn-lg btn-block" id="daterange-btn" type="reset"  tabindex="8">
+                                  <a href="cancel.php">Cancel Sale</a>
+                                </button>
+
+                            </form> 
+                          </div><!-- /.box-body -->
+                        </div><!-- /.box -->
+                      </div>
+                      <!-- /.check-tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+              </div>
+              <!-- /.nav-tabs-custom -->
               
-				</form>	
-                </div><!-- /.box-body -->
-              </div><!-- /.box -->
             </div><!-- /.col (right) -->
 			
 			
@@ -278,7 +351,7 @@ $queryb=mysqli_query($con,"select balance from customer where cust_id='$cid'")or
 	<script>
   
     
-      $("#cash").click(function(){
+      $("#tendered").click(function(){
           $("#tendered").show('slow');
           $("#change").show('slow');
       });
@@ -340,7 +413,7 @@ $queryb=mysqli_query($con,"select balance from customer where cust_id='$cid'")or
           "paging": true,
           "lengthChange": false,
           "searching": false,
-          "ordering": true,x`
+          "ordering": true,
           "info": true,
           "autoWidth": false
         });
@@ -351,61 +424,6 @@ $queryb=mysqli_query($con,"select balance from customer where cust_id='$cid'")or
         //Initialize Select2 Elements
         $(".select2").select2();
 
-        //Datemask dd/mm/yyyy
-        $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
-        //Datemask2 mm/dd/yyyy
-        $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
-        //Money Euro
-        $("[data-mask]").inputmask();
-
-        //Date range picker
-        $('#reservation').daterangepicker();
-        //Date range picker with time picker
-        $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
-        //Date range as a button
-        $('#daterange-btn').daterangepicker(
-            {
-              ranges: {
-                'Today': [moment(), moment()],
-                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                'This Month': [moment().startOf('month'), moment().endOf('month')],
-                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-              },
-              startDate: moment().subtract(29, 'days'),
-              endDate: moment()
-            },
-        function (start, end) {
-          $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-        }
-        );
-
-        //iCheck for checkbox and radio inputs
-        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-          checkboxClass: 'icheckbox_minimal-blue',
-          radioClass: 'iradio_minimal-blue'
-        });
-        //Red color scheme for iCheck
-        $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-          checkboxClass: 'icheckbox_minimal-red',
-          radioClass: 'iradio_minimal-red'
-        });
-        //Flat red color scheme for iCheck
-        $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-          checkboxClass: 'icheckbox_flat-green',
-          radioClass: 'iradio_flat-green'
-        });
-
-        //Colorpicker
-        $(".my-colorpicker1").colorpicker();
-        //color picker with addon
-        $(".my-colorpicker2").colorpicker();
-
-        //Timepicker
-        $(".timepicker").timepicker({
-          showInputs: false
-        });
       });
     </script>
   </body>

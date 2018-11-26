@@ -4,7 +4,6 @@ $id=$_SESSION['id'];
 include('../dist/includes/dbcon.php');
 
 	$discount = $_POST['discount'];
-	$payment = $_POST['payment'];
 	$amount_due = $_POST['amount_due'];
 	
 	date_default_timezone_set("Asia/Manila"); 
