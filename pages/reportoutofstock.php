@@ -99,7 +99,7 @@ $branch=$_SESSION['branch'];
        
 <?php
 		$branch=$_SESSION['branch'];
-		$query=mysqli_query($con,"select * from product natural join supplier where branch_id='$branch' order by prod_name")or die(mysqli_error());
+		$query=mysqli_query($con,"select * from product where prod_qty='0' and branch_id='$branch' order by prod_name")or die(mysqli_error());
 			$grand=0;
 		while($row=mysqli_fetch_array($query)){
 			$total=$row['prod_price']*$row['prod_qty'];
