@@ -151,8 +151,10 @@ $branch=$_SESSION['branch'];
       </tr>                    
 <?php
 	//$query=mysqli_query($con,"select SUM(payment) as payment, SUM(interest) as interest from payment where date(payment_date)>='$start' and date(payment_date)<='$end' and branch_id='$branch'")or die(mysqli_error($con));
-		$query=mysqli_query($con,"select * from payment natural join customer where date(payment_date)>='$start' and date(payment_date)<='$end' and branch_id='$branch'")or die(mysqli_error($con));
-  
+		$query=mysqli_query($con,"select * from payment a INNER JOIN customer b on a.cust_id=b.cust_id where payment_date BETWEEN '$start' and '$end'")or die(mysqli_error($con));
+    $payment=0;
+    $interest=0;
+    $rebate=0;
 			while ($row=mysqli_fetch_array($query)){
                  $payment=$payment+$row['payment'];
                  $interest=$interest+$row['interest'];
