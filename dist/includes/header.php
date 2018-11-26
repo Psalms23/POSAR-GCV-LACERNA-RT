@@ -39,7 +39,7 @@ $query=mysqli_query($con,"select * from branch where branch_id='$branch'")or die
                   <li class="dropdown notifications-menu">
                     <!-- Menu toggle button -->
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                      <i class="glyphicon glyphicon-refresh text-red"></i> Reorder
+                      <i class="glyphicon glyphicon-refresh text-red"></i> Notifications
                       <span class="label label-danger">
                       <?php 
                       $query=mysqli_query($con,"select COUNT(*) as count from product where prod_qty<=reorder and branch_id='$branch'")or die(mysqli_error());
@@ -49,7 +49,7 @@ $query=mysqli_query($con,"select * from branch where branch_id='$branch'")or die
                       </span>
                     </a>
                     <ul class="dropdown-menu">
-                      <li class="header">You have <?php echo$row['count'];?> products that needs reorder</li>
+                      <li class="header">You have <?php echo $row['count'];?> products that needs reorder</li>
                       <li>
                         <!-- Inner Menu: contains the notifications -->
                         <ul class="menu">
@@ -167,7 +167,7 @@ $query=mysqli_query($con,"select * from branch where branch_id='$branch'")or die
                           </li><!-- end notification -->
 						            <li><!-- start notification -->
                          <a href="purchase_request.php">
-                              <i class="glyphicon glyphicon-usd text-blue"></i>Sales
+                              <i class="glyphicon glyphicon-usd text-blue"></i>Purchase Request
                             </a>
                           </li><!-- end notification -->
                           <li><!-- start notification -->
