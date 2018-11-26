@@ -137,7 +137,7 @@ if (isset($_POST['display']))
                       <th>Date Requested</th>
                     </tr>    
 <?php
-		$query=mysqli_query($con,"select * from purchase_request natural join product natural join supplier where branch_id='$branch' and purchase_status='pending' and date(request_date)>='$start' and date(request_date)<='$end' ")or die(mysqli_error($con));
+		$query=mysqli_query($con,"select * from purchase_request natural join product natural join supplier where branch_id='$branch' and purchase_status='pending' and request_date BETWEEN '$start' and '$end' ")or die(mysqli_error($con));
     		while($row=mysqli_fetch_array($query)){
   
 ?>
