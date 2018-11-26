@@ -98,9 +98,10 @@ $branch=$_SESSION['branch'];
                     <tbody>
 <?php
 		$branch=$_SESSION['branch'];
-		$query=mysqli_query($con,"select * from stockin where branch_id='$branch'")or die(mysqli_error());
+		$query=mysqli_query($con,"select * from stockin a inner join product b on a.prod_id=b.prod_id where a.branch_id='$branch'")or die(mysqli_error());
 		$grand=0;
-		while($row=mysqli_fetch_array($query)){
+    $row=mysqli_fetch_array($query);
+		while(count($row) !=0){
 			$total=$row['prod_price']*$row['prod_qty'];
 			$grand+=$total;
 ?>
