@@ -4,11 +4,10 @@ include("../dist/includes/dbcon.php");
 
 $user_id=$_SESSION['id'];
 $id = $_POST['pr_id'];
-	
-		$query=mysqli_query($con,"select prod_name,qty from product natural join purchase_request where pr_id='$id'")or die(mysqli_error());
+		$query=mysqli_query($con,"select * from product a INNER JOIN purchase_request b on a.prod_id=b.prod_id where b.pr_id='$id'")or die(mysqli_error());
 			$row=mysqli_fetch_array($query);
 			$name=$row['prod_name'];
-			$qty=$row['qty'];
+			$qty=$row['qtypr'];
 
 $result=mysqli_query($con,"DELETE FROM purchase_request WHERE pr_id ='$id'")
 	or die(mysqli_error());

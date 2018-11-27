@@ -36,7 +36,7 @@ endif;
               <a class="btn btn-lg btn-warning" href="home4.php">Back</a>
               <a class="btn btn-lg btn-info" href="request.php">View Reorder Request</a>
             </h1>
-            <ol class="breadcrumb">
+            <ol class="breadcrumb">Request Purchase
               <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
               <li class="active">Product</li>
             </ol>
@@ -44,8 +44,47 @@ endif;
 
           <!-- Main content -->
           <section class="content">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="box box-primary">
+      
+                  <div class="box-header">
+                    <h3 class="box-title">Reorder Cart</h3>
+                  </div><!-- /.box-header -->
+                  <div class="box-body">
+                    <table id="reorder-cart" class="table table-striped">
+                      <thead>
+                        <tr>
+                        
+                          <th>Product Code</th>
+                          <th>Product Name</th>
+                          <th>Brand</th>
+                          <th>Price</th>
+                          <th>Qty</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>           
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th><a id="update-reorder" class="btn btn-primary">Reorder Products</a></th>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div><!-- /.box-body -->
+   
+              </div>
+            </div>
+            <!-- /.col -->
+            </div>
             <div class="row">
-	      
+	            
             
             <div class="col-xs-12">
               <div class="box box-primary">
@@ -54,116 +93,100 @@ endif;
                   <h3 class="box-title">Reorder List</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                  <table id="example1" class="table table-bordered table-striped">
+                  <table id="reorder" class="table table-bordered table-striped">
                     <thead>
                       <tr>
                       
                         <th>Product Code</th>
                         <th>Product Name</th>
-						<th>Brand</th>
+						            <th>Brand</th>
                         <th>Model</th>
                         <th>Qty</th>
-            			<th>Price</th>
-            			<th>Category</th>
-            			<th>Reorder</th>
+                			<th>Price</th>
+                			<th>Category</th>
+                			<th>Reorder</th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-<?php
-		
-		$query=mysqli_query($con,"select * from product natural join brand natural join category where branch_id='$branch' and prod_qty<=reorder order by prod_name")or die(mysqli_error());
-		while($row=mysqli_fetch_array($query)){
-		
-?>
+                <?php
+                		
+                		$query=mysqli_query($con,"select * from product natural join brand natural join category where branch_id='$branch' and prod_qty<=reorder order by prod_name")or die(mysqli_error());
+                		while($row=mysqli_fetch_array($query)){
+                		
+                ?>
                       <tr>
-          <td><?php echo $row['prod_id'];?></td>
-         <td><?php echo $row['prod_name'];?></td>
-		  <td><?php echo $row['brandn'];?></td>
-          <td><?php echo $row['brandm'];?></td>
-          <td><?php echo $row['prod_qty'];?></td>
-  <td><?php echo number_format($row['prod_price'],2);?></td>
-   <td><?php echo $row['cat_name'];?></td>
-       <td><?php echo $row['reorder'];?></td>
+                        <td><?php echo $row['prod_id'];?></td>
+                        <td><?php echo $row['prod_name'];?></td>
+                        <td><?php echo $row['brandn'];?></td>
+                        <td><?php echo $row['brandm'];?></td>
+                        <td><?php echo $row['prod_qty'];?></td>
+                        <td><?php echo number_format($row['prod_price'],2);?></td>
+                        <td><?php echo $row['cat_name'];?></td>
+                        <td><?php echo $row['reorder'];?></td>
 
                         <td>
-				<a href="#updateordinance<?php echo $row['prod_id'];?>" data-target="#updateordinance<?php echo $row['prod_id'];?>" data-toggle="modal" class="btn btn-primary">Request Purchase</a>
-			
-						</td>
-          </tr>
-<div id="updateordinance<?php echo $row['prod_id'];?>" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-	<div class="modal-dialog">
-	  <div class="modal-content" style="height:auto">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">Request Purchase</h4>
-              </div>
-              <div class="modal-body">
-			  <form class="form-horizontal" method="post" action="purchase_add.php" enctype='multipart/form-data'>
-        <div class="form-group">
-          <label class="control-label col-lg-3" for="price">Product Code</label>
-          <div class="col-lg-9">
-            <input type="text" class="form-control" id="price" name="serial" value="<?php echo $row['prod_id'];?>" readonly>  
-          </div>
-        </div>
-                
-				<div class="form-group">
-					<label class="control-label col-lg-3" for="name">Product Name</label>
-					<div class="col-lg-9"><input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['prod_id'];?>" required>  
-					  <input type="text" class="form-control" id="name" name="prod_name" value="<?php echo $row['prod_name'];?>" readonly>  
-					</div>
-				</div> 
-                
-				<div class="form-group">
-					<label class="control-label col-lg-3" for="file">Brand</label>
-					<div class="col-lg-9">
-              <input type="text" class="form-control" id="name" name="prod_name" value="<?php echo $row['brandn'];?>" readonly>  
-					</div>
-				</div> 
-				
-				<div class="form-group">
-					<label class="control-label col-lg-3" for="price">Price</label>
-					<div class="col-lg-9">
-					  <input type="text" class="form-control" id="price" name="prod_price" value="<?php echo $row['prod_price'];?>" readonly>  
-					</div>
-				</div>
-				
-				
-        <div class="form-group">
-          <label class="control-label col-lg-3" for="price">Quantity</label>
-          <div class="col-lg-9">
-            <input type="number" class="form-control" id="price" name="reorder">  
-          </div>
-        </div>
-				<br><br><br><br><br><br><br><br>
-              </div>
-              <div class="modal-footer">
-		<button type="submit" class="btn btn-primary">Save changes</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-			  </form>
-            </div>
-			
-        </div><!--end of modal-dialog-->
- </div>
- <!--end of modal-->                    
-<?php }?>					  
+                  				<a href="#updateordinance<?php echo $row['prod_id'];?>" data-target="#updateordinance<?php echo $row['prod_id'];?>" data-toggle="modal" class="btn btn-primary">Request Purchase</a>
+            						</td>
+                      </tr>
+                      <div id="updateordinance<?php echo $row['prod_id'];?>" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                        <div class="modal-dialog">
+                          <div class="modal-content" style="height:auto">
+                            <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">×</span></button>
+                            <h4 class="modal-title">Request Purchase</h4>
+                            </div>
+                            <div class="modal-body">
+                            
+                              <div class="form-group">
+                                <label class="control-label col-lg-3" for="serial<?php echo $row['prod_id'];?>">Product Code</label>
+                                <div class="col-lg-9">
+                                  <input type="text" class="form-control" id="serial<?php echo $row['prod_id'];?>" name="serial" value="<?php echo $row['prod_id'];?>" readonly>  
+                                </div>
+                              </div>
+
+                              <div class="form-group">
+                                <label class="control-label col-lg-3" for="prod_name<?php echo $row['prod_id'];?>">Product Name</label>
+                                <div class="col-lg-9"><input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['prod_id'];?>" required>  
+                                  <input type="text" class="form-control" id="prod_name<?php echo $row['prod_id'];?>" name="prod_name" value="<?php echo $row['prod_name'];?>" readonly>  
+                                </div>
+                              </div> 
+
+                              <div class="form-group">
+                                <label class="control-label col-lg-3" for="brand<?php echo $row['prod_id'];?>">Brand</label>
+                                <div class="col-lg-9">
+                              <input type="text" class="form-control" id="brand<?php echo $row['prod_id'];?>" name="brand<?php echo $row['prod_id'];?>" value="<?php echo $row['brandn'];?>" readonly>  
+                                </div>
+                              </div> 
+
+                              <div class="form-group">
+                                <label class="control-label col-lg-3" for="price<?php echo $row['prod_id'];?>">Price</label>
+                                <div class="col-lg-9">
+                                  <input type="text" class="form-control" id="price<?php echo $row['prod_id'];?>" name="prod_price<?php echo $row['prod_id'];?>" value="<?php echo $row['prod_price'];?>" readonly>  
+                                </div>
+                              </div>
+
+
+                              <div class="form-group">
+                                <label class="control-label col-lg-3" for="qty<?php echo $row['prod_id'];?>">Quantity</label>
+                                <div class="col-lg-9">
+                                  <input type="number" class="form-control" id="qty<?php echo $row['prod_id'];?>" name="qty<?php echo $row['prod_id'];?>">  
+                                </div>
+                              </div>
+
+                              </div>
+                              <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary reorder-to-cart" data-id="<?php  echo $row['prod_id']?>">Save changes</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                              </div>
+
+                          </div><!--end of modal-dialog-->
+                        </div>
+                      </div>
+                     <!--end of modal-->                    
+                    <?php }?>					  
                     </tbody>
-                    <tfoot>
-                      <tr>
-                      
-                        <th>Product Code </th>
-                        <th>Product Name</th>
-						<th>Brand</th>
-                        <th>Model</th>
-                        <th>Qty</th>
-						<th>Price</th>
-						<th>Category</th>
-						<th>Reorder</th>
-                        <th>Action</th>
-                      </tr>					  
-                    </tfoot>
                   </table>
                 </div><!-- /.box-body -->
  
@@ -178,6 +201,7 @@ endif;
       </div><!-- /.content-wrapper -->
       <?php include('../dist/includes/footer.php');?>
     </div><!-- ./wrapper -->
+
 
     <!-- jQuery 2.1.4 -->
     <script src="../plugins/jQuery/jQuery-2.1.4.min.js"></script>
@@ -196,16 +220,97 @@ endif;
     
     <script>
       $(function () {
-        $("#example1").DataTable();
-        $('#example2').DataTable({
+        var cart = $('#reorder-cart').DataTable({
           "paging": true,
-          "lengthChange": false,
+          "lengthChange": true,
           "searching": false,
+          "ordering": true,
+          "info": true,
+          "autoWidth": false,
+          "columnDefs": [
+            { "name": "serial",   "targets": 0 },
+            { "name": "prod_name",  "targets": 1 },
+            { "name": "brand", "targets": 2 },
+            { "name": "price",  "targets": 3 },
+            { "name": "qty",    "targets": 4 },
+            { "name": "action", "orderable": "false", "targets":5}
+          ],
+          "aoColumnDefs":[
+            {
+                "aTargets": [5],
+                "mRender": function(data, type, row) {
+                    return "<a class='remove pull-left' href='javascript:void(0)'>x</a>";
+                }
+            }
+          ]
+        });
+        $('#reorder').DataTable({
+          "paging": true,
+          "lengthChange": true,
+          "searching": true,
           "ordering": true,
           "info": true,
           "autoWidth": false
         });
+        // add to cart
+        $('.reorder-to-cart').on('click', function(e){
+          e.preventDefault();
+          var id = $(e.target).data('id');
+          if($('#qty'+id).val() <= 0){
+            alert("Invalid Quantity!");
+          }else{
+             var serial = $('#serial'+id).val();
+             var prod_name = $('#prod_name'+id).val();
+             var brand = $('#brand'+id).val();
+             var price = $('#price'+id).val();
+             var qty = $('#qty'+id).val();
+
+             cart.row.add( [serial, prod_name, brand, price, qty] ).draw( false );
+             $('#updateordinance'+id).modal("hide")
+          }
+          
+
+        });
+
+        // remove from cart
+       $('#reorder-cart').on( 'click', 'tr a.remove', function () {
+            var row = this.closest('tr');
+            var row_data = cart.row( row ).data();
+            cart.row( row ).remove().draw();
+        } );
+
+
+       // store reorders to database
+       $('#update-reorder').on('click', function(e){
+        e.preventDefault();
+        var tdata = cart.rows().data();
+        if(tdata.length != 0) {
+          var counter = 0;
+          for (var i = tdata.length -1; i >= 0; i--) {
+              tdata[i][5] = "<?php echo $_SESSION['branch'] ?>";
+              $.ajax({
+                type: "POST",
+                url: "purchase_add.php",
+                data: {data:tdata[i]},
+                dataType:"json",
+                success: function(data){
+                  counter++;
+                  console.log(data.message, counter)
+                  alert("Successfully added new purchase request!");
+                }
+              });
+              document.location='request.php';
+            }
+          
+        }else{
+          alert("Reorder cart is empty!")
+        }  
+       })
+
+
+        
       });
     </script>
   </body>
+ 
 </html>

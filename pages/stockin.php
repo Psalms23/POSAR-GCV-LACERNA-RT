@@ -260,7 +260,6 @@ endif;
           if(dr == "" || qty <= 0){
             alert('Invalid Data for stock in!')
           }else{
-            alert('clicked')
             var jqxhr = $.ajax({
                type: "POST",
                url: "stockin-fetch.php",
