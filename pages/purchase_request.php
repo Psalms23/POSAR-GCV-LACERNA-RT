@@ -130,22 +130,20 @@ if (isset($_POST['display']))
                    <table class="table">
                     <thead>
                     <tr>
-                      <th>Product Code</th>
+                      <th>Serial Code</th>
                       <th>Product Name</th>
-                      <th>Quantity</th>
-                      <th>Supplier Name</th>
+                      <th>Quantity Requested</th>
                       <th>Date Requested</th>
                     </tr>    
 <?php
-		$query=mysqli_query($con,"select * from purchase_request natural join product natural join supplier where branch_id='$branch' and purchase_status='pending' and request_date BETWEEN '$start' and '$end' ")or die(mysqli_error($con));
+		$query=mysqli_query($con,"select * from purchase_request natural join product natural join brand where branch_id='$branch' and request_date BETWEEN '$start' and '$end' ")or die(mysqli_error($con));
     		while($row=mysqli_fetch_array($query)){
   
 ?>
                       <tr>
             						<td><?php echo $row['serial'];?></td>
                         <td class="record"><?php echo $row['prod_name'];?></td>
-            						<td><?php echo $row['qty'];?></td>
-            						<td><?php echo $row['supplier_name'];?></td>
+            						<td><?php echo $row['qtypr'];?></td>
                         <td><?php echo $row['request_date'];?></td>
                                     
                       </tr>

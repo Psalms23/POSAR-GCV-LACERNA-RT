@@ -6,7 +6,7 @@ endif;
 include('../dist/includes/dbcon.php');
 	$id = $_POST['id'];
 	$name =$_POST['prod_name'];
-	$supplier =$_POST['supplier'];
+	$supplier ='';
 	$price = $_POST['prod_price'];
 	$reorder = $_POST['reorder'];
 	$category = $_POST['category'];
