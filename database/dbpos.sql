@@ -550,7 +550,7 @@ INSERT INTO `sales_details` (`sales_details_id`, `sales_id`, `prod_id`, `price`,
 
 CREATE TABLE IF NOT EXISTS `stockin` (
   `stockin_id` int(11) NOT NULL AUTO_INCREMENT,
-  'pr_id' int(11) NOT NULL,
+  `pr_id` int(11) NOT NULL,
   `dr` varchar(50) NOT NULL,
   `prod_id` int(11) NOT NULL,
   `qty` int(6) NOT NULL,
