@@ -42,30 +42,48 @@ $query=mysqli_query($con,"select * from branch where branch_id='$branch'")or die
                       <i class="glyphicon glyphicon-refresh text-red"></i> Notifications
                       <span class="label label-danger">
                       <?php 
+                      date_default_timezone_set('Asia/Manila');
+                      $date = date("Y-m-d");
                       $query=mysqli_query($con,"select COUNT(*) as count from product where prod_qty<=reorder and branch_id='$branch'")or die(mysqli_error());
+                      $query_due = mysqli_query($con,"select COUNT(*) as due from customer natural join sales natural join sales_details natural join term natural join product where balance!=0 and branch_id='$branch' and due_date<'$date' order by cust_last desc")or die(mysqli_error());
+                      $row1=mysqli_fetch_array($query_due);
                 			$row=mysqli_fetch_array($query);
-                			echo $row['count'];
+                			echo $row['count']+$row1['due'];
                 			?>	
                       </span>
                     </a>
                     <ul class="dropdown-menu">
-                      <li class="header">You have <?php echo $row['count'];?> products that needs reorder</li>
+                      <li class="header">
+                      <?php echo $row['count'];?> products that needs reorder
+                      <br>
+                      <?php echo $row1['due'];?> over due accounts as of <?php echo date("M, Y"); ?>
+                      </li>
                       <li>
                         <!-- Inner Menu: contains the notifications -->
                         <ul class="menu">
                         <?php
                         $queryprod=mysqli_query($con,"select prod_name from product where prod_qty<=reorder and branch_id='$branch'")or die(mysqli_error());
-			  while($rowprod=mysqli_fetch_array($queryprod)){
-			?>
+                  			  while($rowprod=mysqli_fetch_array($queryprod)){
+                  			?>
                           <li><!-- start notification -->
                             <a href="reorder.php">
                               <i class="glyphicon glyphicon-refresh text-red"></i> <?php echo $rowprod['prod_name'];?>
                             </a>
                           </li><!-- end notification -->
                           <?php }?>
+
+                        <?php
+                        $query_due=mysqli_query($con,"select * from customer natural join sales natural join sales_details natural join term natural join product where balance!=0 and branch_id='$branch' and due_date<'$date' order by cust_last desc")or die(mysqli_error());
+                          while($row_due=mysqli_fetch_array($query_due)){
+                        ?>
+                          <li><!-- start notification -->
+                            <a href="account_summary.php?cid=<?php echo $row_due['cust_id']; ?>">
+                              <i class="glyphicon glyphicon-th-list text-red"></i> <?php echo $row_due['cust_last'];?>( Due Account )
+                            </a>
+                          </li><!-- end notification -->
+                          <?php }?>
                         </ul>
                       </li>
-                      <li class="footer"><a href="inventory.php">View all</a></li>
                     </ul>
                   </li>
                   <!-- Tasks Menu -->
