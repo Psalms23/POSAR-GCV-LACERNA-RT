@@ -100,7 +100,7 @@ $branch=$_SESSION['branch'];
 		$branch=$_SESSION['branch'];
     date_default_timezone_set('Asia/Manila');
     $date = date("Y-m-d");
-		$query=mysqli_query($con,"select * from customer natural join sales natural join sales_details natural join term natural join product where balance!=0 and branch_id='$branch' and due_date<'$date' order by cust_last desc")or die(mysqli_error());
+		$query=mysqli_query($con,"select * from customer natural join sales natural join sales_details natural join term natural join product where balance!=0 and branch_id='$branch' and due_date<'$date' and status!='paid' order by due_date desc")or die(mysqli_error());
 		while($row=mysqli_fetch_array($query)){
 		
 ?>
@@ -109,7 +109,7 @@ $branch=$_SESSION['branch'];
                         <td><?php echo $row['cust_last'].", ".$row['cust_first'];?></td>
                         <td><?php echo $row['prod_name'];?></td>
                         <td><?php echo $row['serial'];?></td>
-                        <td><?php echo number_format($row['balance'],2);?></td>
+                        <td><?php echo number_format($row['due'],2);?></td>
 			
                       </tr>
 		<?php }?>			  
@@ -118,7 +118,7 @@ $branch=$_SESSION['branch'];
                       <tr>
                         <th colspan="4">Total</th>
                         <th><h4><b><?php 
-                        $querytotal=mysqli_query($con,"select SUM(balance) as total from customer natural join sales natural join sales_details natural join term natural join product where balance!=0 and branch_id='$branch' and due_date<'$date' order by cust_last desc")or die(mysqli_error());
+                        $querytotal=mysqli_query($con,"select SUM(due) as total from customer natural join sales natural join sales_details natural join term natural join product where balance!=0 and branch_id='$branch' and due_date<'$date' and status!='paid'")or die(mysqli_error());
 			  $row=mysqli_fetch_array($querytotal);
 			  echo number_format($row['total'],2);
 			?></b></h4>
@@ -238,61 +238,6 @@ $branch=$_SESSION['branch'];
         //Initialize Select2 Elements
         $(".select2").select2();
 
-        //Datemask dd/mm/yyyy
-        $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
-        //Datemask2 mm/dd/yyyy
-        $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
-        //Money Euro
-        $("[data-mask]").inputmask();
-
-        //Date range picker
-        $('#reservation').daterangepicker();
-        //Date range picker with time picker
-        $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
-        //Date range as a button
-        $('#daterange-btn').daterangepicker(
-            {
-              ranges: {
-                'Today': [moment(), moment()],
-                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                'This Month': [moment().startOf('month'), moment().endOf('month')],
-                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-              },
-              startDate: moment().subtract(29, 'days'),
-              endDate: moment()
-            },
-        function (start, end) {
-          $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-        }
-        );
-
-        //iCheck for checkbox and radio inputs
-        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-          checkboxClass: 'icheckbox_minimal-blue',
-          radioClass: 'iradio_minimal-blue'
-        });
-        //Red color scheme for iCheck
-        $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-          checkboxClass: 'icheckbox_minimal-red',
-          radioClass: 'iradio_minimal-red'
-        });
-        //Flat red color scheme for iCheck
-        $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-          checkboxClass: 'icheckbox_flat-green',
-          radioClass: 'iradio_flat-green'
-        });
-
-        //Colorpicker
-        $(".my-colorpicker1").colorpicker();
-        //color picker with addon
-        $(".my-colorpicker2").colorpicker();
-
-        //Timepicker
-        $(".timepicker").timepicker({
-          showInputs: false
-        });
       });
     </script>
   </body>

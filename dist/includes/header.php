@@ -43,9 +43,10 @@ $query=mysqli_query($con,"select * from branch where branch_id='$branch'")or die
                       <span class="label label-danger">
                       <?php 
                       date_default_timezone_set('Asia/Manila');
-                      $date = date("Y-m-d");
+                      $date1= date("Y-m")."-1";
+                      $date2 = date("Y-m")."-31";
                       $query=mysqli_query($con,"select COUNT(*) as count from product where prod_qty<=reorder and branch_id='$branch'")or die(mysqli_error());
-                      $query_due = mysqli_query($con,"select COUNT(*) as due from customer natural join sales natural join sales_details natural join term natural join product where balance!=0 and branch_id='$branch' and due_date<'$date' order by cust_last desc")or die(mysqli_error());
+                      $query_due = mysqli_query($con,"select COUNT(*) as due from customer a INNER JOIN sales b on a.cust_id=b.cust_id INNER JOIN sales_details c on b.sales_id=c.sales_id INNER JOIN term d on b.sales_id=d.sales_id INNER JOIN product e on c.prod_id=e.prod_id where a.balance!=0 and a.branch_id='$branch' and status!='paid' and d.due_date BETWEEN '$date1' and '$date2' group by a.cust_id")or die(mysqli_error());
                       $row1=mysqli_fetch_array($query_due);
                 			$row=mysqli_fetch_array($query);
                 			echo $row['count']+$row1['due'];
@@ -56,7 +57,7 @@ $query=mysqli_query($con,"select * from branch where branch_id='$branch'")or die
                       <li class="header">
                       <?php echo $row['count'];?> products that needs reorder
                       <br>
-                      <?php echo $row1['due'];?> over due accounts as of <?php echo date("M, Y"); ?>
+                      <?php if($row1['due'] != 0) { echo $row1['due']; }else{ echo '0';}?> due accounts as of <?php echo date("M, Y"); ?>
                       </li>
                       <li>
                         <!-- Inner Menu: contains the notifications -->
@@ -73,7 +74,7 @@ $query=mysqli_query($con,"select * from branch where branch_id='$branch'")or die
                           <?php }?>
 
                         <?php
-                        $query_due=mysqli_query($con,"select * from customer natural join sales natural join sales_details natural join term natural join product where balance!=0 and branch_id='$branch' and due_date<'$date' order by cust_last desc")or die(mysqli_error());
+                        $query_due=mysqli_query($con,"select * from customer natural join sales natural join sales_details natural join term natural join product where balance!=0 and branch_id='$branch' and status!='paid' and due_date BETWEEN '$date1' and '$date2' order by cust_last desc")or die(mysqli_error());
                           while($row_due=mysqli_fetch_array($query_due)){
                         ?>
                           <li><!-- start notification -->
