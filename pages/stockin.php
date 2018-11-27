@@ -167,7 +167,7 @@ endif;
                     <tbody>
                       <?php
                           $branch=$_SESSION['branch'];
-                          $query=mysqli_query($con,"select * from stockin a inner join purchase_request b on a.prod_id=b.pr_id inner join product c on c.prod_id=b.prod_id where a.branch_id='$branch' order by date desc")or die(mysqli_error());
+                          $query=mysqli_query($con,"select * from stockin a inner join purchase_request b on a.prod_id=b.prod_id inner join product c on c.prod_id=b.prod_id where a.branch_id='$branch' order by date desc")or die(mysqli_error());
                           while($row=mysqli_fetch_array($query)){
                           
                       ?>
@@ -295,7 +295,7 @@ endif;
                     }
             });
           }
-          document.location='stockin.php';
+              document.location='stockin.php';
         })
 
         // remove from cart

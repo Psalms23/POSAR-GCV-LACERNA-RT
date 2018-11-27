@@ -89,7 +89,7 @@ $branch=$_SESSION['branch'];
                         <th>Qty </th>
 						
             						<th>Date</th>
-            						<th></th>
+            						<th>Price</th>
                                     <th>Total</th>
             						
                        
@@ -98,11 +98,10 @@ $branch=$_SESSION['branch'];
                     <tbody>
 <?php
 		$branch=$_SESSION['branch'];
-		$query=mysqli_query($con,"select * from stockin a inner join product b on a.prod_id=b.prod_id where a.branch_id='$branch'")or die(mysqli_error());
+		$query=mysqli_query($con,"select * from stockin a inner join product b on a.prod_id=b.prod_id inner join purchase_request c on a.prod_id=c.prod_id where a.branch_id='$branch'")or die(mysqli_error());
 		$grand=0;
-    $row=mysqli_fetch_array($query);
-		while(count($row) !=0){
-			$total=$row['prod_price']*$row['prod_qty'];
+		while($row=mysqli_fetch_array($query)){
+			$total=$row['prod_price']*$row['qty'];
 			$grand+=$total;
 ?>
                       <tr>
@@ -112,7 +111,7 @@ $branch=$_SESSION['branch'];
                         <td><?php echo $row['qty'];?></td>
 						
 						<td><?php echo $row['date'];?></td>
-						<td></td>
+						<td><?php echo $row['prod_price']; ?></td>
 						 <td><?php echo number_format($total,2);?></td>
                        
                       </tr>

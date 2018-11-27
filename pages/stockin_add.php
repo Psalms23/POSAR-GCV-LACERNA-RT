@@ -14,7 +14,9 @@ include('../dist/includes/dbcon.php');
   
 		$product=$pr_id;
 	    $remarks="added $qty of $product";  
-	
+		$query = mysqli_query($con,"select * from purchase_request where pr_id='$pr_id' and branch_id='$branch'")or die(mysqli_error($con));
+		$row=mysqli_fetch_array($query);
+		$prod_id = $row['prod_id'];
 		mysqli_query($con,"INSERT INTO history_log(user_id,action,date) VALUES('$id','$remarks','$date')")or die(mysqli_error($con));
 		
 		mysqli_query($con,"UPDATE purchase_request SET purchase_status='Received' where pr_id='$pr_id' and branch_id='$branch'") or die(mysqli_error($con));	 
@@ -22,7 +24,7 @@ include('../dist/includes/dbcon.php');
   		
 	mysqli_query($con,"UPDATE product SET prod_qty=prod_qty+'$qty' where branch_id='$branch'") or die(mysqli_error($con)); 
 			
-			mysqli_query($con,"INSERT INTO stockin(prod_id,dr,qty,date,branch_id,status) VALUES('$pr_id','$dr','$qty','$date','$branch','Complete')")or die(mysqli_error($con));
+			mysqli_query($con,"INSERT INTO stockin(prod_id,dr,qty,date,branch_id,status) VALUES('$prod_id','$dr','$qty','$date','$branch','Complete')")or die(mysqli_error($con));
 
 
 			$response = ["message"=>"Stocks Saved"];
