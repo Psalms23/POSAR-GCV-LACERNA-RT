@@ -64,7 +64,7 @@ endif;
                       <select id="pr_id" class="form-control select2" name="pr_id" required>
                         <?php
 			 include('../dist/includes/dbcon.php');
-				$query2=mysqli_query($con,"select * from purchase_request a inner join product b on a.prod_id=b.prod_id where a.branch_id='$branch' order by pr_id")or die(mysqli_error());
+				$query2=mysqli_query($con,"select * from purchase_request a inner join product b on a.prod_id=b.prod_id where a.branch_id='$branch' and a.purchase_status='pending' order by pr_id")or die(mysqli_error());
 				  while($row=mysqli_fetch_array($query2)){
 		      ?>
                         <option value="<?php echo $row['pr_id'];?>"><?php echo $row['pr_id'].' - '.$row['prod_name'].' ('.$row['prod_desc'].' '.$row['qtypr'].'pcs)';?></option>
@@ -291,10 +291,11 @@ endif;
               data: {data:tdata[i]},
               dataType:"json",
               success: function(data){
-                      console.log(data.message)
+                      alert(data.message)
                     }
             });
           }
+          document.location='stockin.php';
         })
 
         // remove from cart
