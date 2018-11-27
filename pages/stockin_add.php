@@ -24,7 +24,7 @@ include('../dist/includes/dbcon.php');
   		
 	mysqli_query($con,"UPDATE product SET prod_qty=prod_qty+'$qty' where branch_id='$branch'") or die(mysqli_error($con)); 
 			
-			mysqli_query($con,"INSERT INTO stockin(prod_id,dr,qty,date,branch_id,status) VALUES('$prod_id','$dr','$qty','$date','$branch','Complete')")or die(mysqli_error($con));
+			mysqli_query($con,"INSERT INTO stockin(prod_id,dr,qty,date,branch_id,status,pr_id) VALUES('$prod_id','$dr','$qty','$date','$branch','Complete',$pr_id)")or die(mysqli_error($con));
 
 
 			$response = ["message"=>"Stocks Saved"];
