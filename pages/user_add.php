@@ -1,5 +1,6 @@
 <?php 
-
+session_start();
+$branch=$_SESSION['branch'];
 include('../dist/includes/dbcon.php');
 
 
@@ -14,8 +15,8 @@ include('../dist/includes/dbcon.php');
 		$pass=$salt.$pass;
 	
 			
-			mysqli_query($con,"INSERT INTO user(username,password,position,name,lname,cno,status)
-			VALUES('$username','$pass','$position','$name','$lname','$cno','active')")or die(mysqli_error($con));
+			mysqli_query($con,"INSERT INTO user(username,password,position,name,lname,cno,status,branch_id)
+			VALUES('$username','$pass','$position','$name','$lname','$cno','active','$branch')")or die(mysqli_error($con));
 
 			echo "<script type='text/javascript'>alert('Successfully added new user!');</script>";
 					  echo "<script>document.location='user.php'</script>";  
