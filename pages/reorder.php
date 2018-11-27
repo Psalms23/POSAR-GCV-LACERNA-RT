@@ -111,7 +111,7 @@ endif;
                     <tbody>
                 <?php
                 		
-                		$query=mysqli_query($con,"select * from product natural join brand natural join category where branch_id='$branch' and prod_qty<=reorder order by prod_name")or die(mysqli_error());
+                		$query=mysqli_query($con,"select * from product natural join brand natural join category where branch_id='$branch' order by prod_name")or die(mysqli_error());
                 		while($row=mysqli_fetch_array($query)){
                 		
                 ?>

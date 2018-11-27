@@ -57,7 +57,7 @@ endif;
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                      	
+                      	<th>PR ID</th>
                         <th>Product Code</th>
                         <th>Product Name</th>
 						 <th>Brand</th>
@@ -71,11 +71,12 @@ endif;
                     <tbody>
 <?php
 		
-		$query=mysqli_query($con,"select * from purchase_request natural join product natural join brand where branch_id='$branch' order by request_date")or die(mysqli_error());
+		$query=mysqli_query($con,"select * from purchase_request natural join product natural join brand where branch_id='$branch' and purchase_status='pending' order by request_date")or die(mysqli_error());
 		while($row=mysqli_fetch_array($query)){
 		
 ?>
                       <tr>
+                      <td><?php echo $row['pr_id']; ?></td>
               <td><?php echo $row['prod_id'];?></td>
                <td><?php echo $row['prod_name'];?></td>
 			 <td><?php echo $row['brandn'];?></td>
@@ -120,19 +121,6 @@ endif;
  <!--end of modal-->                    
 <?php }?>					  
                     </tbody>
-                    <tfoot>
-                      <tr>
-                      
-                        <th>Product Code</th>
-                        <th>Product Name</th>
-						 <th>Brand</th>
-                          <th>Model</th>
-                        <th>Ordered</th>
-            			<th>Price</th>
-            			<th>Date Requested</th>
-                        <th>Action</th>
-                      </tr>					  
-                    </tfoot>
                   </table>
                 </div><!-- /.box-body -->
  
