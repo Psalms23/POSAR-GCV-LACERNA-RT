@@ -699,6 +699,6 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`user_id`, `username`, `password`, `position`, `name`, `lname`, `cno`, `status`, `branch_id`) VALUES
-(1, 'admin', 'a1Bz20ydqelm8m1wql21232f297a57a5a743894a0e4a801fc3', '1', 'Melissa', '', '', 'active', 1),
-(2, 'administrator', 'a1Bz20ydqelm8m1wql21232f297a57a5a743894a0e4a801fc3', '1', 'Melissa Lacerna', '', '', 'active', 0),
-(3, 'mel', 'a1Bz20ydqelm8m1wql0ef174fc614c8d61e2d63329ef7f46c0', '1', 'Lacerna, Melissa', '', '098667564', 'active', 0);
+(1, 'admin', 'a1Bz20ydqelm8m1wql21232f297a57a5a743894a0e4a801fc3', '1', 'Melissa', 'Lacerna', '', 'active', 1),
+(2, 'administrator', 'a1Bz20ydqelm8m1wql21232f297a57a5a743894a0e4a801fc3', '1', 'Melissa', 'Lacerna', '', 'active', 0),
+(3, 'mel', 'a1Bz20ydqelm8m1wql0ef174fc614c8d61e2d63329ef7f46c0', '1', 'Lacerna, Melissa', 'Lacerna', '098667564', 'active', 0);

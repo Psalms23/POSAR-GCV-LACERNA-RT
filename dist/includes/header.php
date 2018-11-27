@@ -213,7 +213,7 @@ $query=mysqli_query($con,"select * from branch where branch_id='$branch'")or die
                     <!-- Menu Toggle Button -->
                     <a href="profile.php" class="dropdown-toggle">
                       <i class="glyphicon glyphicon-cog text-orange"></i>
-                      <?php echo $_SESSION['lname'];?>
+                      <?php echo 'ADMIN - '.$_SESSION['lname'];?>
                     </a>
                   </li>
                   <li class="">
