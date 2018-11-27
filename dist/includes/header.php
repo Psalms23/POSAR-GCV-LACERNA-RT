@@ -175,9 +175,14 @@ $query=mysqli_query($con,"select * from branch where branch_id='$branch'")or die
                               <i class="glyphicon glyphicon-usd text-blue"></i>Income
                             </a>
                           </li><!-- end notification -->
-					    <li><!-- start notification -->
+					               <li><!-- start notification -->
                          <a href="receivables.php">
                               <i class="glyphicon glyphicon-th-list text-red"></i>Account Receivables
+                            </a>
+                          </li><!-- end notification -->
+                          <li><!-- start notification -->
+                         <a href="overdue.php">
+                              <i class="glyphicon glyphicon-th-list text-red"></i>Over Due Accounts
                             </a>
                           </li><!-- end notification -->
                         </ul>
