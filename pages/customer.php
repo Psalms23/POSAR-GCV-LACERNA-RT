@@ -36,7 +36,7 @@ endif;
           <!-- Content Header (Page header) -->
           <section class="content-header">
             <h1>
-              <a class="btn btn-lg btn-warning" href="home.php">Back</a>
+              <a class="btn btn-lg btn-warning" href="home2.php">Back</a>
               
             </h1>
             <ol class="breadcrumb">
