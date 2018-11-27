@@ -436,11 +436,11 @@ CREATE TABLE IF NOT EXISTS `product` (
   `prod_pic` varchar(300) NOT NULL,
   `brandid` int(11) NOT NULL,
   `cat_id` int(11) NOT NULL,
-  `subcatid` int(11) NOT NULL,
-  `prod_qty` int(11) NOT NULL,
+  `subcatid` int(11),
+  `prod_qty` int(11) DEFAULT 0,
   `branch_id` int(11) NOT NULL,
   `reorder` int(11) NOT NULL,
-  `supplier_id` int(11) NOT NULL,
+  `supplier_id` int(11),
   `serial` varchar(50) NOT NULL,
   PRIMARY KEY (`prod_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
@@ -550,6 +550,7 @@ INSERT INTO `sales_details` (`sales_details_id`, `sales_id`, `prod_id`, `price`,
 
 CREATE TABLE IF NOT EXISTS `stockin` (
   `stockin_id` int(11) NOT NULL AUTO_INCREMENT,
+  'pr_id' int(11) NOT NULL,
   `dr` varchar(50) NOT NULL,
   `prod_id` int(11) NOT NULL,
   `qty` int(6) NOT NULL,

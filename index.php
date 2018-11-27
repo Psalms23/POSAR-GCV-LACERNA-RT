@@ -41,12 +41,6 @@
             <input type="password" class="form-control" placeholder="Password" name="password" required>
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           </div>
-          <div>
-            <select class="form-control select2" style="width:100%" name="position" required>
-                <option value="0">User</option>
-                <option value="1">Admin</option>
-            </select>
-          </div>
 		  <div style="visibility: hidden;">
             <select class="form-control select2" style="width:100%" name="branch" required>
                 <?php

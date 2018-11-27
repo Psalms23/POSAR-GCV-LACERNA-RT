@@ -279,7 +279,6 @@ if(isset($_POST['login']))
 $user_unsafe=$_POST['username'];
 $pass_unsafe=$_POST['password'];
 $branch=$_POST['branch'];
-$position = $_POST['position'];
 
 $user = mysqli_real_escape_string($con,$user_unsafe);
 $pass1 = mysqli_real_escape_string($con,$pass_unsafe);
@@ -292,24 +291,17 @@ date_default_timezone_set('Asia/Manila');
 
 $date = date("Y-m-d H:i:s");
 
-$query=mysqli_query($con,"select * from user natural join branch where username='$user' and password='$pass' and branch_id='$branch' and position='$position' and status='active'")or die(mysqli_error($con));
+$query=mysqli_query($con,"select * from user natural join branch where username='$user' and password='$pass' and branch_id='$branch' and status='active'")or die(mysqli_error($con));
 	$row=mysqli_fetch_array($query);
            $id=$row['user_id'];
            $name=$row['name'];
            $lname=$row['lname'];
            $counter=mysqli_num_rows($query);
-           $pos = '';
-           if ($row['position'] == 0) {
-           	$pos="User";
-           }else{
-           	$pos="Admin";
-           }
 
            $id=$row['user_id'];
            $_SESSION['lname']=$lname;
            $_SESSION['branch']=$row['branch_id'];
            $_SESSION['position']=$row['position'];
-           $_SESSION['pos']=$pos;
          // $_SESSION['skin']=$row['skin'];
 
   	if ($counter == 0) 
