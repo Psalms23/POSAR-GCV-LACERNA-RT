@@ -27,7 +27,7 @@ include('../dist/includes/dbcon.php');
 			mysqli_query($con,"INSERT INTO stockin(prod_id,dr,qty,date,branch_id,status,pr_id) VALUES('$prod_id','$dr','$qty','$date','$branch','Complete',$pr_id)")or die(mysqli_error($con));
 
 
-			$response = ["message"=>"Stocks Saved"];
+			$response = array("message"=>"Stocks Saved");
 			echo json_encode($response);
   
 	
